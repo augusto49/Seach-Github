@@ -25,7 +25,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       : super(SearchState(users: [], isLoading: false)) {
     on<SearchEvent>((event, emit) async {
       if (!event.loadMore) {
-        _currentPage = 1; // Reseta a paginação ao fazer uma nova busca
+        _currentPage = 1;
         emit(SearchState(users: [], isLoading: true));
       } else {
         emit(SearchState(users: state.users, isLoading: true, hasMore: state.hasMore));
