@@ -19,12 +19,13 @@ class UserCard extends StatelessWidget {
           leading: CircleAvatar(
             backgroundImage: NetworkImage(user.avatarUrl),
           ),
-          title: Text(user.login, style: const TextStyle(fontWeight: FontWeight.bold)),
+          title: Text(user.login,
+              style: const TextStyle(fontWeight: FontWeight.bold)),
           subtitle: Text(
             user.htmlUrl,
             style: TextStyle(color: Theme.of(context).primaryColor),
           ),
-           trailing: const Icon(Icons.open_in_new),
+          trailing: const Icon(Icons.open_in_new),
         ),
       ),
     );

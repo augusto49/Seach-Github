@@ -22,7 +22,6 @@ class _SearchPageState extends State<SearchPage> {
   FocusNode _searchFocus = FocusNode();
   List<String> _filteredSearchHistory = [];
 
-
   @override
   void initState() {
     super.initState();
@@ -30,12 +29,13 @@ class _SearchPageState extends State<SearchPage> {
     _loadSearchHistory();
     _searchFocus.addListener(_handleSearchFocusChange);
   }
-  void _handleSearchFocusChange(){
-    if(!_searchFocus.hasFocus){
+
+  void _handleSearchFocusChange() {
+    if (!_searchFocus.hasFocus) {
       setState(() {
         _filteredSearchHistory = [];
       });
-    }else{
+    } else {
       _loadSearchHistory();
     }
   }
@@ -44,10 +44,9 @@ class _SearchPageState extends State<SearchPage> {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
       _searchHistory = prefs.getStringList('searchHistory') ?? [];
-        _filteredSearchHistory = _searchHistory;
+      _filteredSearchHistory = _searchHistory;
     });
   }
-
 
   Future<void> _saveSearchHistory(String query) async {
     if (query.isEmpty) return;
@@ -56,8 +55,8 @@ class _SearchPageState extends State<SearchPage> {
     history.remove(query);
     history.insert(0, query);
 
-    if(history.length > 5){
-      history = history.sublist(0,5);
+    if (history.length > 5) {
+      history = history.sublist(0, 5);
     }
 
     await prefs.setStringList('searchHistory', history);
@@ -68,7 +67,8 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void _onScroll() {
-    if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent &&
+    if (_scrollController.position.pixels ==
+            _scrollController.position.maxScrollExtent &&
         !widget.bloc.state.isLoading &&
         widget.bloc.state.hasMore) {
       widget.bloc.add(SearchEvent(_searchController.text, loadMore: true));
@@ -123,8 +123,8 @@ class _SearchPageState extends State<SearchPage> {
                   child: RichText(
                     text: TextSpan(
                       style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                            fontWeight: FontWeight.bold,
+                          ),
                       children: const [
                         TextSpan(
                           text: 'Search ',
@@ -149,16 +149,19 @@ class _SearchPageState extends State<SearchPage> {
                       hintText: 'Search',
                       prefixIcon: const Icon(Icons.search),
                       border: const OutlineInputBorder(),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                      suffixIcon: _searchController.text.isNotEmpty ? IconButton(
-                          icon: const Icon(Icons.clear),
-                          onPressed: () {
-                            setState(() {
-                              _searchController.clear();
-                                _filteredSearchHistory = [];
-                            });
-                          },
-                        ) : null,
+                      contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 10),
+                      suffixIcon: _searchController.text.isNotEmpty
+                          ? IconButton(
+                              icon: const Icon(Icons.clear),
+                              onPressed: () {
+                                setState(() {
+                                  _searchController.clear();
+                                  _filteredSearchHistory = [];
+                                });
+                              },
+                            )
+                          : null,
                     ),
                     validator: (value) {
                       if (value?.isEmpty ?? true) {
@@ -167,34 +170,39 @@ class _SearchPageState extends State<SearchPage> {
                       return null;
                     },
                     onChanged: (value) {
-                       setState(() {
-                         _filteredSearchHistory = _searchHistory.where((element) => element.toLowerCase().startsWith(value.toLowerCase())).toList();
-                       });
+                      setState(() {
+                        _filteredSearchHistory = _searchHistory
+                            .where((element) => element
+                                .toLowerCase()
+                                .startsWith(value.toLowerCase()))
+                            .toList();
+                      });
                     },
                     onFieldSubmitted: (_) => _onSearch(),
                   ),
                 ),
-                if(_searchFocus.hasFocus && _filteredSearchHistory.isNotEmpty)
+                if (_searchFocus.hasFocus && _filteredSearchHistory.isNotEmpty)
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey.shade400),
-                      borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5)),
+                      borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(5),
+                          bottomRight: Radius.circular(5)),
                     ),
                     child: ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: _filteredSearchHistory.length,
-                        itemBuilder: (context, index){
+                        itemBuilder: (context, index) {
                           final suggestion = _filteredSearchHistory[index];
                           return ListTile(
                             title: Text(suggestion),
-                            onTap: (){
+                            onTap: () {
                               _onSuggestionSelected(suggestion);
                             },
                           );
-                        }
-                    ),
+                        }),
                   ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
@@ -207,7 +215,8 @@ class _SearchPageState extends State<SearchPage> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.purple,
                         ),
-                        child: const Text('Buscar',
+                        child: const Text(
+                          'Buscar',
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
@@ -221,17 +230,22 @@ class _SearchPageState extends State<SearchPage> {
                       bloc: widget.bloc,
                       builder: (context, state) {
                         if (state.isLoading && state.users.isEmpty) {
-                          return const Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
                         }
                         if (state.users.isEmpty) {
-                          return const Center(child: Text('Nenhum usuário encontrado.'));
+                          return const Center(
+                              child: Text('Nenhum usuário encontrado.'));
                         }
                         return ListView.builder(
                           controller: _scrollController,
-                          itemCount: state.hasMore ? state.users.length + 1 : state.users.length,
+                          itemCount: state.hasMore
+                              ? state.users.length + 1
+                              : state.users.length,
                           itemBuilder: (context, index) {
                             if (index >= state.users.length) {
-                              return const Center(child: CircularProgressIndicator());
+                              return const Center(
+                                  child: CircularProgressIndicator());
                             }
                             final user = state.users[index];
                             return UserCard(user: user);

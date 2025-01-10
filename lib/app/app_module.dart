@@ -10,6 +10,6 @@ class AppModule extends Module {
   final List<ModularRoute> routes = [
     ModuleRoute('/', module: SearchModule()),
     ChildRoute('/profile',
-            child: (_, args) => ProfilePage(username: args.data)),
+        child: (_, args) => ProfilePage(username: args.data)),
   ];
 }

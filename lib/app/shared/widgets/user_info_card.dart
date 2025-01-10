@@ -27,11 +27,14 @@ class UserInfoCard extends StatelessWidget {
                 children: [
                   Text(
                     userData.name ?? 'Nome não disponível',
-                    style:  const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+                    style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
                   ),
                   Text(
                     '@${userData.username}',
-                    style:  const TextStyle(fontSize: 16, color: Colors.black),
+                    style: const TextStyle(fontSize: 16, color: Colors.black),
                   ),
                 ],
               ),
@@ -41,18 +44,22 @@ class UserInfoCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const Icon(Icons.people_outline_sharp, color:  Color.fromARGB(255, 87, 82, 82)),
+              const Icon(Icons.people_outline_sharp,
+                  color: Color.fromARGB(255, 87, 82, 82)),
               const SizedBox(width: 4),
               Text(
                 '${userData.followers} seguidores',
-                style: const TextStyle(fontSize: 14, color:  Color.fromARGB(255, 87, 82, 82)),
+                style: const TextStyle(
+                    fontSize: 14, color: Color.fromARGB(255, 87, 82, 82)),
               ),
               const SizedBox(width: 10),
-              const Icon(Icons.favorite_border, color:  Color.fromARGB(255, 87, 82, 82)),
+              const Icon(Icons.favorite_border,
+                  color: Color.fromARGB(255, 87, 82, 82)),
               const SizedBox(width: 4),
               Text(
                 '${userData.following} seguindo',
-                style: const TextStyle(fontSize: 14, color:  Color.fromARGB(255, 87, 82, 82)),
+                style: const TextStyle(
+                    fontSize: 14, color: Color.fromARGB(255, 87, 82, 82)),
               ),
             ],
           ),
@@ -63,37 +70,38 @@ class UserInfoCard extends StatelessWidget {
               child: Text(
                 userData.bio!,
                 textAlign: TextAlign.start,
-                style: const TextStyle(fontStyle: FontStyle.normal, color: Colors.black),
+                style: const TextStyle(
+                    fontStyle: FontStyle.normal, color: Colors.black),
               ),
-            ),
-            Wrap(
-                spacing: 10.0,
-                children: [
-                if (userData.company != null)
-                    buildInfoRow(Icons.work_outline, ' ${userData.company}'),
-                if (userData.location != null)
-                  buildInfoRow(
-                  Icons.location_on_outlined,
-                '${userData.location?.split(',').first ?? userData.location }',
-              ),
-             ],
             ),
           Wrap(
-                spacing: 10.0,
-                children: [
-                if (userData.email != null)
-                    buildLinkInfo(context,
-                     'email', userData.email!, 'mailto:${userData.email}'),
-                if (userData.blog != null && userData.blog!.isNotEmpty)
-                  buildLinkInfo(context, 'site', userData.blog!, userData.blog!),
-                if (userData.twitterUsername != null)
-                  buildLinkInfo(
-                    context,
-                    'twitter',
-                    '@${userData.twitterUsername}',
-                    'https://twitter.com/${userData.twitterUsername}',
-                  ),
-                ],
+            spacing: 10.0,
+            children: [
+              if (userData.company != null)
+                buildInfoRow(Icons.work_outline, ' ${userData.company}'),
+              if (userData.location != null)
+                buildInfoRow(
+                  Icons.location_on_outlined,
+                  '${userData.location?.split(',').first ?? userData.location}',
+                ),
+            ],
+          ),
+          Wrap(
+            spacing: 10.0,
+            children: [
+              if (userData.email != null)
+                buildLinkInfo(context, 'email', userData.email!,
+                    'mailto:${userData.email}'),
+              if (userData.blog != null && userData.blog!.isNotEmpty)
+                buildLinkInfo(context, 'site', userData.blog!, userData.blog!),
+              if (userData.twitterUsername != null)
+                buildLinkInfo(
+                  context,
+                  'twitter',
+                  '@${userData.twitterUsername}',
+                  'https://twitter.com/${userData.twitterUsername}',
+                ),
+            ],
           ),
         ],
       ),

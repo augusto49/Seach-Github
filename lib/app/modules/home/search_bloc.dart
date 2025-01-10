@@ -14,7 +14,8 @@ class SearchState {
   final bool isLoading;
   final bool hasMore;
 
-  SearchState({required this.users, required this.isLoading, this.hasMore = true});
+  SearchState(
+      {required this.users, required this.isLoading, this.hasMore = true});
 }
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
@@ -28,11 +29,13 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         _currentPage = 1;
         emit(SearchState(users: [], isLoading: true));
       } else {
-        emit(SearchState(users: state.users, isLoading: true, hasMore: state.hasMore));
+        emit(SearchState(
+            users: state.users, isLoading: true, hasMore: state.hasMore));
       }
 
       try {
-        final users = await repository.searchUsers(event.query, page: _currentPage);
+        final users =
+            await repository.searchUsers(event.query, page: _currentPage);
         _currentPage++;
         emit(SearchState(
           users: event.loadMore ? [...state.users, ...users] : users,

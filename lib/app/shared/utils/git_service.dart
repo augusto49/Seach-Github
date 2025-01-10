@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import '../models/user_model.dart';
 import '../models/repo_model.dart';
 
-
 class GithubService {
   final http.Client _client = http.Client();
 

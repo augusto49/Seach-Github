@@ -5,7 +5,6 @@ import '../../shared/utils/git_service.dart';
 import '../../shared/widgets/repo_card.dart';
 import '../../shared/widgets/user_info_card.dart';
 
-
 class ProfilePage extends StatefulWidget {
   final String username;
 
@@ -33,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
     _fetchData();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent &&
+              _scrollController.position.maxScrollExtent &&
           _hasMore &&
           !_isLoadingMore) {
         _fetchRepositories();
@@ -100,120 +99,125 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
- @override
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final isLargeScreen = size.width > 800;
-
 
     return Scaffold(
       appBar: AppBar(),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
           : _userData == null
-          ? const Center(child: Text('Erro ao carregar os dados do usuário.'))
-          : SafeArea(
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: isLargeScreen ? size.width * 0.05 : 10,
-                  vertical: 10,
+              ? const Center(
+                  child: Text('Erro ao carregar os dados do usuário.'))
+              : SafeArea(
+                  child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: isLargeScreen ? size.width * 0.05 : 10,
+                        vertical: 10,
+                      ),
+                      child: isLargeScreen
+                          ? _buildLargeScreenLayout(context)
+                          : _buildMobileLayout(context)),
                 ),
-                  child: isLargeScreen
-                     ? _buildLargeScreenLayout(context)
-                      : _buildMobileLayout(context)
-             ),
-           ),
     );
   }
-   Widget _buildLargeScreenLayout(BuildContext context) {
-    return  Row(
-            children: [
-              Flexible(
-                 flex: 1,
-                  child:  _userData != null
-                       ? Padding(
-                          padding: const EdgeInsets.all(8.0),
-                            child: UserInfoCard(userData: _userData!),
-                           )
-                        : const SizedBox(),
-                ),
-                 Flexible(
-                    flex: 2,
-                     child: _buildRepoList(context),
-                  ),
-              ],
-             );
-   }
 
-    Widget _buildMobileLayout(BuildContext context) {
-     return  Column(
-                  children: [
-                     if(_userData != null) UserInfoCard(userData: _userData!),
-                    Expanded(
-                      child: _buildRepoList(context),
+  Widget _buildLargeScreenLayout(BuildContext context) {
+    return Row(
+      children: [
+        Flexible(
+          flex: 1,
+          child: _userData != null
+              ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: UserInfoCard(userData: _userData!),
+                )
+              : const SizedBox(),
+        ),
+        Flexible(
+          flex: 2,
+          child: _buildRepoList(context),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMobileLayout(BuildContext context) {
+    return Column(
+      children: [
+        if (_userData != null) UserInfoCard(userData: _userData!),
+        Expanded(
+          child: _buildRepoList(context),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildRepoList(BuildContext context) {
+    return Column(
+      children: [
+        if (_repositories.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const Text('Ordenar por: '),
+                DropdownButton<String>(
+                  value: _sortOption,
+                  onChanged: _handleSortChanged,
+                  items: const [
+                    DropdownMenuItem(
+                      value: 'full_name',
+                      child: Text('Nome'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'created',
+                      child: Text('Criação'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'updated',
+                      child: Text('Atualização'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'pushed',
+                      child: Text('Envio'),
                     ),
                   ],
-             );
-   }
-    Widget _buildRepoList(BuildContext context) {
-       return  Column(
-                      children: [
-                            if(_repositories.isNotEmpty)  Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                 const Text('Ordenar por: '),
-                                 DropdownButton<String>(
-                                    value: _sortOption,
-                                   onChanged: _handleSortChanged,
-                                   items: const [
-                                    DropdownMenuItem(
-                                       value: 'full_name',
-                                      child: Text('Nome'),
-                                     ),
-                                     DropdownMenuItem(
-                                       value: 'created',
-                                      child: Text('Criação'),
-                                    ),
-                                     DropdownMenuItem(
-                                      value: 'updated',
-                                     child: Text('Atualização'),
-                                  ),
-                                     DropdownMenuItem(
-                                       value: 'pushed',
-                                      child: Text('Envio'),
-                                   ),
-                                 ],
-                                ),
-                             ],
+                ),
+              ],
+            ),
+          ),
+        Expanded(
+          child: ListView.builder(
+            controller: _scrollController,
+            padding: const EdgeInsets.all(16.0),
+            itemCount: _repositories.length + (_isLoadingMore ? 1 : 0),
+            itemBuilder: (context, index) {
+              if (index < _repositories.length) {
+                return RepoCard(repo: _repositories[index]);
+              } else {
+                return _isLoadingMore
+                    ? const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16.0),
+                        child: Center(child: CircularProgressIndicator()),
+                      )
+                    : (_hasMore || _repositories.isEmpty
+                        ? const SizedBox()
+                        : const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 16.0),
+                            child: Center(
+                              child: Text(
+                                  'Todos os repositórios foram carregados.'),
                             ),
-                           ),
-                         Expanded(
-                           child:  ListView.builder(
-                                    controller: _scrollController,
-                                      padding:  const EdgeInsets.all(16.0),
-                                        itemCount: _repositories.length + (_isLoadingMore ? 1 : 0) ,
-                                            itemBuilder: (context, index) {
-                                            if (index < _repositories.length) {
-                                                  return RepoCard(repo: _repositories[index]);
-                                                } else {
-                                                  return _isLoadingMore ? const Padding(
-                                                    padding: EdgeInsets.symmetric(vertical: 16.0),
-                                                    child: Center(child: CircularProgressIndicator()),
-                                                )
-                                                   : (_hasMore || _repositories.isEmpty ? const SizedBox()  : const Padding(
-                                                    padding: EdgeInsets.symmetric(vertical: 16.0),
-                                                       child: Center(
-                                                         child: Text(
-                                                            'Todos os repositórios foram carregados.'),
-                                                     ),
-                                                  ));
-                                            }
-                                      },
-                             ),
-                          ),
-                        ],
-                      );
-   }
+                          ));
+              }
+            },
+          ),
+        ),
+      ],
+    );
+  }
 }

@@ -10,7 +10,6 @@ import 'dart:convert';
 import 'github_service_test.mocks.dart';
 import 'package:http/testing.dart' as http_testing;
 
-
 @GenerateMocks([http.Client])
 void main() {
   late GithubService service;
@@ -18,12 +17,13 @@ void main() {
 
   setUp(() {
     mockClient = MockClient();
-     service = GithubService();
+    service = GithubService();
   });
 
   group('GithubService', () {
     group('fetchUserProfile', () {
-      test('deve retornar um UserProfileModel se a requisição for bem-sucedida (status 200)',
+      test(
+          'deve retornar um UserProfileModel se a requisição for bem-sucedida (status 200)',
           () async {
         final username = 'testuser';
         final mockResponse = {
@@ -31,7 +31,7 @@ void main() {
           'avatar_url': 'https://avatar.com/testuser',
           'followers': 100,
           'following': 200,
-           'bio': 'test bio',
+          'bio': 'test bio',
           'company': 'test company',
           'location': 'test location',
           'email': 'test@test.com',
@@ -39,33 +39,36 @@ void main() {
           'twitter_username': 'test_twitter',
         };
 
-
-         when(mockClient.get(Uri.parse('https://api.github.com/users/$username')))
-          .thenAnswer((_) async => http.Response(json.encode(mockResponse), 200));
+        when(mockClient
+                .get(Uri.parse('https://api.github.com/users/$username')))
+            .thenAnswer(
+                (_) async => http.Response(json.encode(mockResponse), 200));
 
         final user = await service.fetchUserProfile(username);
 
         expect(user, isA<UserProfileModel>());
-         expect(user.name, 'Test User');
+        expect(user.name, 'Test User');
         expect(user.avatarUrl, 'https://avatar.com/testuser');
         expect(user.followers, 100);
         expect(user.following, 200);
-         expect(user.bio, 'test bio');
+        expect(user.bio, 'test bio');
         expect(user.company, 'test company');
         expect(user.location, 'test location');
         expect(user.email, 'test@test.com');
         expect(user.blog, 'test.com');
-       expect(user.twitterUsername, 'test_twitter');
+        expect(user.twitterUsername, 'test_twitter');
       });
 
       test(
           'deve lançar uma exceção se a requisição não for bem-sucedida (status != 200)',
           () async {
         final username = 'testuser';
-        when(mockClient.get(Uri.parse('https://api.github.com/users/$username')))
+        when(mockClient
+                .get(Uri.parse('https://api.github.com/users/$username')))
             .thenAnswer((_) async => http.Response('Not Found', 404));
 
-        expect(() => service.fetchUserProfile(username), throwsA(isA<Exception>()));
+        expect(() => service.fetchUserProfile(username),
+            throwsA(isA<Exception>()));
       });
     });
 
@@ -79,7 +82,7 @@ void main() {
         final sortOption = 'full_name';
 
         final mockResponse = [
-           {
+          {
             'name': 'repo1',
             'description': 'description 1',
             'html_url': 'https://repo1.com',
@@ -95,8 +98,9 @@ void main() {
           },
         ];
         when(mockClient.get(Uri.parse(
-            'https://api.github.com/users/$username/repos?page=$page&per_page=$perPage&sort=$sortOption')))
-            .thenAnswer((_) async => http.Response(json.encode(mockResponse), 200));
+                'https://api.github.com/users/$username/repos?page=$page&per_page=$perPage&sort=$sortOption')))
+            .thenAnswer(
+                (_) async => http.Response(json.encode(mockResponse), 200));
 
         final repos = await service.fetchRepositories(
             username, page, perPage, sortOption);
@@ -117,18 +121,20 @@ void main() {
 
       test(
           'deve lançar uma exceção se a requisição não for bem-sucedida (status != 200)',
-              () async {
-            final username = 'testuser';
-            final page = 1;
-            final perPage = 10;
-            final sortOption = 'full_name';
-          when(mockClient.get(Uri.parse(
-              'https://api.github.com/users/$username/repos?page=$page&per_page=$perPage&sort=$sortOption')))
-                .thenAnswer((_) async => http.Response('Not Found', 404));
+          () async {
+        final username = 'testuser';
+        final page = 1;
+        final perPage = 10;
+        final sortOption = 'full_name';
+        when(mockClient.get(Uri.parse(
+                'https://api.github.com/users/$username/repos?page=$page&per_page=$perPage&sort=$sortOption')))
+            .thenAnswer((_) async => http.Response('Not Found', 404));
 
-            expect(() => service.fetchRepositories(username, page, perPage, sortOption),
-                throwsA(isA<Exception>()));
-          });
+        expect(
+            () =>
+                service.fetchRepositories(username, page, perPage, sortOption),
+            throwsA(isA<Exception>()));
+      });
     });
   });
 }

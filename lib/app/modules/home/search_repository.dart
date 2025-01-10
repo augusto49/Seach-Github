@@ -7,7 +7,7 @@ class SearchRepository {
   SearchRepository(this.apiService);
 
   Future<List<UserModel>> searchUsers(String query, {int page = 1}) async {
-  final results = await apiService.get('/search/users?q=$query&page=$page');
-  return results.map((user) => UserModel.fromJson(user)).toList();
+    final results = await apiService.get('/search/users?q=$query&page=$page');
+    return results.map((user) => UserModel.fromJson(user)).toList();
   }
 }

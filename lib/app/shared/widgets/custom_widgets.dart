@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../modules/webview/webview_page.dart';
 
-Widget buildLinkInfo(BuildContext context, String label, String value, String url) {
+Widget buildLinkInfo(
+    BuildContext context, String label, String value, String url) {
   return GestureDetector(
     onTap: () {
       Navigator.push(
@@ -25,15 +26,16 @@ Widget buildLinkInfo(BuildContext context, String label, String value, String ur
               label == "email"
                   ? Icons.mail_outline
                   : label == "site"
-                  ? Icons.link
-                  : Icons.alternate_email_outlined,
+                      ? Icons.link
+                      : Icons.alternate_email_outlined,
               color: const Color.fromARGB(255, 87, 82, 82)),
           const SizedBox(width: 8),
           Flexible(
             child: Text(
               value,
               style: const TextStyle(
-                  color:   Color.fromARGB(255, 87, 82, 82), decoration: TextDecoration.underline),
+                  color: Color.fromARGB(255, 87, 82, 82),
+                  decoration: TextDecoration.underline),
             ),
           ),
         ],
@@ -54,7 +56,8 @@ Widget buildInfoRow(IconData icon, String text) {
         Flexible(
           child: Text(
             text,
-            style: const TextStyle(fontSize: 14, color:  Color.fromARGB(255, 87, 82, 82)),
+            style: const TextStyle(
+                fontSize: 14, color: Color.fromARGB(255, 87, 82, 82)),
           ),
         ),
       ],

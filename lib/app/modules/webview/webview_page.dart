@@ -21,12 +21,11 @@ class _WebViewPageState extends State<WebViewPage> {
     super.initState();
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setNavigationDelegate(NavigationDelegate(
-          onPageFinished: (url) {
-            setState(() {
-              isLoading = false;
-            });
-          }))
+      ..setNavigationDelegate(NavigationDelegate(onPageFinished: (url) {
+        setState(() {
+          isLoading = false;
+        });
+      }))
       ..loadRequest(Uri.parse(widget.url));
   }
 
@@ -36,17 +35,16 @@ class _WebViewPageState extends State<WebViewPage> {
         appBar: AppBar(
           title: Text(widget.title),
         ),
-      body:  Stack(
-        children: [
-          WebViewWidget(
-            controller: controller,
-          ),
-          if(isLoading) const Center(
-            child: CircularProgressIndicator(),
-          )
-        ],
-      )
-
-    );
+        body: Stack(
+          children: [
+            WebViewWidget(
+              controller: controller,
+            ),
+            if (isLoading)
+              const Center(
+                child: CircularProgressIndicator(),
+              )
+          ],
+        ));
   }
 }

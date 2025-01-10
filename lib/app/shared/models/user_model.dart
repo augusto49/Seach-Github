@@ -46,7 +46,8 @@ class UserProfileModel {
     this.twitterUsername,
   });
 
-  factory UserProfileModel.fromJson(Map<String, dynamic> json, String username) {
+  factory UserProfileModel.fromJson(
+      Map<String, dynamic> json, String username) {
     return UserProfileModel(
       name: json['name'],
       username: username,
