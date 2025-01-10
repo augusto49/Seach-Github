@@ -45,3 +45,6 @@ Esta aplicação Flutter foi desenvolvida como parte de um teste técnico, com o
 
 *   O projeto foi desenvolvido com foco em atender os requisitos solicitados, onde foi explorado o conhecimento em conceitos básicos do Flutter com um desafio real.
 
+https://github.com/user-attachments/assets/f69b9fab-7be2-4f5f-a358-04bc09249889
+
+https://github.com/user-attachments/assets/f88b1b36-604b-45dc-8659-66356040a563
