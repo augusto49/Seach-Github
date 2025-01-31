@@ -1,11 +1,6 @@
-# petize
-
-**O APK do projeto esta na pasta raiz, nome Teste-Petize.apk**
+**O APK do projeto esta na pasta raiz, nome Seach-Github.apk**
 
 **Aplicação de Busca de Desenvolvedores GitHub:**
-
-Esta aplicação Flutter foi desenvolvida como parte de um teste técnico, com o objetivo de demonstrar habilidades em desenvolvimento mobile e conhecimentos sobre a API do GitHub. Os principais aspectos abordados foram:
-
 **Funcionalidades Principais:**
 
 *   **Busca de Usuários:**
