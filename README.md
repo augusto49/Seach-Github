@@ -1,4 +1,4 @@
-**O APK do projeto esta na pasta raiz, nome Seach-Github.apk**
+**O APK do projeto esta na pasta raiz, nome Teste-Petize.apk**
 
 **Aplicação de Busca de Desenvolvedores GitHub:**
 **Funcionalidades Principais:**
