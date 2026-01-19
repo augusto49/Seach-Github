@@ -1,45 +1,84 @@
-**O APK do projeto esta na pasta raiz, nome Teste-Petize.apk**
+# 🔍 Search GitHub
 
-**Aplicação de Busca de Desenvolvedores GitHub:**
-**Funcionalidades Principais:**
+![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white)
+![Bloc](https://img.shields.io/badge/Bloc-State_Management-blue?style=for-the-badge)
+![Modular](https://img.shields.io/badge/Modular-Dependency_Injection-orange?style=for-the-badge)
 
-*   **Busca de Usuários:**
-    *   Permite pesquisar perfis de desenvolvedores do GitHub através do nome de usuário.
-    *   Exibe os dados do usuário, como nome, avatar, bio, número de seguidores/seguindo, empresa, localização e links (e-mail, site e Twitter).
-    *   Possui um loading enquanto a pesquisa é feita.
-*   **Listagem de Repositórios:**
-    *   Exibe a lista de repositórios do usuário pesquisado, com informações como nome, descrição, número de estrelas e data da última atualização.
-    *   Possui scroll infinito para carregar mais repositórios quando necessário, com paginação de 10 itens por requisição.
-     * Os repositórios possuem um link para o repositório original no GitHub.
-    *  O usuário pode ordenar a lista de repositórios por nome, data de criação, atualização ou envio.
-*   **Sugestões de Pesquisa:**
-    *   Salva as últimas 5 pesquisas de nome de usuário em um armazenamento local seguro.
-    *   Exibe as pesquisas salvas como sugestões abaixo do campo de pesquisa.
-    *   As sugestões são filtradas em tempo real enquanto o usuário digita, exibindo apenas aquelas que começam com o texto digitado.
-*   **Links Externos:**
-    *   Abre os links do perfil do usuário (e-mail, site e Twitter) em uma WebView dentro do app.
-    *  Possui loading enquanto a página na webview está carregando.
-*  **Responsividade:**
-    *  As telas são totalmente responsivas utilizando `MediaQuery` e widgets do tipo `Flex` como `Row`, `Column`, `Expanded` e `Flexible`.
-    *  Adaptação da tela para layout mobile e desktop, onde a tela de perfil possui um layout lateral com as informações do usuário e os repositórios em tela cheia no layout desktop e para o layout mobile as informações e os repositórios são mostradas na mesma coluna.
-*  **Gerenciamento de Estado:**
-    * O app utiliza `Bloc` para gerenciamento do estado.
-*   **Testes Unitários:**
-    *   Possui testes unitários para os serviços de listagem de usuário e listagem de repositórios.
+Aplicativo moderno para busca de perfis e repositórios do GitHub, desenvolvido em Flutter com foco em arquitetura limpa, responsividade e experiência do usuário.
 
-**Requisitos Técnicos Atendidos:**
+## ✨ Funcionalidades
 
-*   Utilização do Flutter Modular para gerenciamento de dependências e rotas.
-*   Uso de `MediaQuery` e `Flex` widgets para a responsividade.
-*   Implementação de duas rotas nomeadas: "home" (busca) e "profile" (perfil).
-*   Abertura de links externos em uma WebView.
-*   Consumo da API do GitHub com o pacote `http`.
-*   Utilização de `Bloc` para gerenciamento de estado.
-*   Armazenamento local seguro das últimas pesquisas.
-*   Geração de APK em versão de release com chave de assinatura.
+### 👤 Busca de Usuários
 
-*   O projeto foi desenvolvido com foco em atender os requisitos solicitados, onde foi explorado o conhecimento em conceitos básicos do Flutter com um desafio real.
+- **Pesquisa Inteligente:** Encontre qualquer desenvolvedor pelo nome de usuário.
+- **Histórico e Autocomplete:**
+  - Suas últimas 5 pesquisas ficam salvas.
+  - Sugestões aparecem enquanto você digita (estilo dropdown flutuante).
+  - Ícones intuitivos para histórico e seleção.
+- **Design Premium:** Interface moderna com gradientes, sombras suaves e animações.
 
-https://github.com/user-attachments/assets/f69b9fab-7be2-4f5f-a358-04bc09249889
+### 📄 Perfil Detalhado
 
-https://github.com/user-attachments/assets/f88b1b36-604b-45dc-8659-66356040a563
+- **Cartão de Informações:** Visualize nome, bio, seguidores, seguindo, e links sociais.
+- **Layout Responsivo:**
+  - **Mobile:** Design vertical otimizado para o toque.
+  - **Desktop/Tablet:** Layout em duas colunas para aproveitar telas grandes.
+- **Ações Rápidas:** Botões para abrir e-mail, site e Twitter diretamente.
+
+### 📦 Repositórios
+
+- **Listagem Completa:** Veja todos os projetos do usuário.
+- **Filtros Avançados:** Ordene por Nome, Data de Criação, Última Atualização ou Pushed.
+- **Paginação Infinita:** Scroll suave que carrega mais repositórios automaticamente.
+- **WebView Integrada:** Abra os repositórios sem sair do app, com barra de progresso e controle de atualização.
+- **Visualização em Cards:** Cards flutuantes com destaque para estrelas ⭐ e data 📅.
+
+### 🛠️ Aspectos Técnicos
+
+- **Arquitetura:** Modular + BLoC (Separação clara entre UI, Lógica e Dados).
+- **Gerenciamento de Estado:** `flutter_bloc` para controle previsível e reativo.
+- **Injeção de Dependência:** `flutter_modular`.
+- **Responsividade:** Uso de `FittedBox`, `Wrap`, `Flexible` e `MediaQuery` para adaptação total (de celulares pequenos a monitores 4K).
+- **Feedback Visual:** Skeleton loading (shimmer) e indicadores de progresso reais.
+
+---
+
+## 🚀 Como Instalar
+
+### Opção 1: APK (Android)
+
+O arquivo APK pronto para instalação está na raiz deste projeto:
+**`app-release.apk`**
+
+Transfira para seu celular e instale (habilite "Fontes Desconhecidas" se necessário).
+
+### Opção 2: Código Fonte
+
+1.  **Clone o repositório:**
+
+    ```bash
+    git clone https://github.com/seu-usuario/seach-github.git
+    cd Seach-Github
+    ```
+
+2.  **Instale as dependências:**
+
+    ```bash
+    flutter pub get
+    ```
+
+3.  **Execute o projeto:**
+    ```bash
+    flutter run
+    ```
+
+---
+
+## 📱 Previews
+
+_(Screenshots do app aqui)_
+
+---
+
+Desenvolvido com 💙 e Flutter.

@@ -18,6 +18,7 @@ dependencies:
   flutter_bloc: ^8.1.2
   shared_preferences: ^2.3.5
   webview_flutter: ^4.0.0
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

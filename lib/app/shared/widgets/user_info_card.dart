@@ -10,94 +10,95 @@ class UserInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.purple[50],
-      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Colors.purple.shade50,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      padding: const EdgeInsets.all(20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              CircleAvatar(
-                radius: 30,
-                backgroundImage: NetworkImage(userData.avatarUrl!),
+              Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(color: Colors.purple, width: 2),
+                ),
+                child: CircleAvatar(
+                  radius: 35,
+                  backgroundColor: Colors.white,
+                  backgroundImage: NetworkImage(userData.avatarUrl!),
+                ),
               ),
-              const SizedBox(width: 16),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    userData.name ?? 'Nome não disponível',
-                    style: const TextStyle(
-                        fontSize: 20,
+              const SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      userData.name ?? 'Nome não disponível',
+                      style: const TextStyle(
+                        fontSize: 22,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                  ),
-                  Text(
-                    '@${userData.username}',
-                    style: const TextStyle(fontSize: 16, color: Colors.black),
-                  ),
-                ],
+                        color: Colors.black87,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '@${userData.username}',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.grey.shade700,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
-          const SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+          const SizedBox(height: 20),
+          Wrap(
+            spacing: 20,
+            runSpacing: 8,
             children: [
-              const Icon(Icons.people_outline_sharp,
-                  color: Color.fromARGB(255, 87, 82, 82)),
-              const SizedBox(width: 4),
-              Text(
-                '${userData.followers} seguidores',
-                style: const TextStyle(
-                    fontSize: 14, color: Color.fromARGB(255, 87, 82, 82)),
-              ),
-              const SizedBox(width: 10),
-              const Icon(Icons.favorite_border,
-                  color: Color.fromARGB(255, 87, 82, 82)),
-              const SizedBox(width: 4),
-              Text(
-                '${userData.following} seguindo',
-                style: const TextStyle(
-                    fontSize: 14, color: Color.fromARGB(255, 87, 82, 82)),
-              ),
+              _buildStatItem(Icons.people, '${userData.followers} seguidores'),
+              _buildStatItem(Icons.favorite, '${userData.following} seguindo'),
             ],
           ),
-          const SizedBox(height: 16),
-          if (userData.bio != null)
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Text(
-                userData.bio!,
-                textAlign: TextAlign.start,
-                style: const TextStyle(
-                    fontStyle: FontStyle.normal, color: Colors.black),
+          if (userData.bio != null) ...[
+            const SizedBox(height: 20),
+            Text(
+              userData.bio!,
+              style: TextStyle(
+                fontSize: 15,
+                height: 1.4,
+                color: Colors.grey.shade800,
               ),
             ),
+          ],
+          const SizedBox(height: 20),
           Wrap(
-            spacing: 10.0,
+            spacing: 16.0,
+            runSpacing: 8.0,
             children: [
               if (userData.company != null)
-                buildInfoRow(Icons.work_outline, ' ${userData.company}'),
+                buildInfoRow(Icons.business, userData.company!),
               if (userData.location != null)
                 buildInfoRow(
-                  Icons.location_on_outlined,
-                  '${userData.location?.split(',').first ?? userData.location}',
+                  Icons.location_on,
+                  userData.location?.split(',').first ?? userData.location!,
                 ),
-            ],
-          ),
-          Wrap(
-            spacing: 10.0,
-            children: [
               if (userData.email != null)
                 buildLinkInfo(context, 'email', userData.email!,
                     'mailto:${userData.email}'),
               if (userData.blog != null && userData.blog!.isNotEmpty)
-                buildLinkInfo(context, 'site', userData.blog!, userData.blog!),
+                buildLinkInfo(context, 'link', 'Website', userData.blog!),
               if (userData.twitterUsername != null)
                 buildLinkInfo(
                   context,
-                  'twitter',
+                  'flutter_dash', // Using a generic icon if twitter not avail, or mapped in helper
                   '@${userData.twitterUsername}',
                   'https://twitter.com/${userData.twitterUsername}',
                 ),
@@ -105,6 +106,23 @@ class UserInfoCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildStatItem(IconData icon, String text) {
+    return Row(
+      children: [
+        Icon(icon, size: 20, color: Colors.purple),
+        const SizedBox(width: 8),
+        Text(
+          text,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Colors.black87,
+          ),
+        ),
+      ],
     );
   }
 }

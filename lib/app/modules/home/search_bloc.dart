@@ -12,15 +12,21 @@ class SearchEvent {
 class SearchState {
   final List<UserModel> users;
   final bool isLoading;
+  final bool isLoadingMore;
   final bool hasMore;
 
-  SearchState(
-      {required this.users, required this.isLoading, this.hasMore = true});
+  SearchState({
+    required this.users,
+    required this.isLoading,
+    this.isLoadingMore = false,
+    this.hasMore = true,
+  });
 }
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final SearchRepository repository;
   int _currentPage = 1;
+  final int _perPage = 20;
 
   SearchBloc(this.repository)
       : super(SearchState(users: [], isLoading: false)) {
@@ -29,21 +35,31 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         _currentPage = 1;
         emit(SearchState(users: [], isLoading: true));
       } else {
+        if (state.isLoadingMore || !state.hasMore) return;
         emit(SearchState(
-            users: state.users, isLoading: true, hasMore: state.hasMore));
+            users: state.users,
+            isLoading: state.isLoading,
+            isLoadingMore: true,
+            hasMore: state.hasMore));
       }
 
       try {
-        final users =
-            await repository.searchUsers(event.query, page: _currentPage);
+        final users = await repository.searchUsers(event.query,
+            page: _currentPage, perPage: _perPage);
         _currentPage++;
+
         emit(SearchState(
           users: event.loadMore ? [...state.users, ...users] : users,
           isLoading: false,
-          hasMore: users.isNotEmpty,
+          isLoadingMore: false,
+          hasMore: users.length == _perPage,
         ));
       } catch (_) {
-        emit(SearchState(users: state.users, isLoading: false, hasMore: false));
+        emit(SearchState(
+            users: state.users,
+            isLoading: false,
+            isLoadingMore: false,
+            hasMore: false));
       }
     });
   }
