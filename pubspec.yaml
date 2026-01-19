@@ -28,6 +28,13 @@ dev_dependencies:
   bloc_test: ^9.1.0
   mockito: ^5.2.0
   build_runner: ^2.4.8
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/app_icon.png"
+  min_sdk_android: 21
 
 flutter:
   uses-material-design: true
