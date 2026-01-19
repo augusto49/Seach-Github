@@ -2,13 +2,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:petize/app/shared/models/repo_model.dart';
-import 'package:petize/app/shared/models/user_model.dart';
-import 'package:petize/app/shared/utils/git_service.dart';
+import 'package:search_github/app/shared/models/repo_model.dart';
+import 'package:search_github/app/shared/models/user_model.dart';
+import 'package:search_github/app/shared/utils/github_service.dart';
 import 'dart:convert';
 
 import 'github_service_test.mocks.dart';
-import 'package:http/testing.dart' as http_testing;
 
 @GenerateMocks([http.Client])
 void main() {
@@ -17,7 +16,7 @@ void main() {
 
   setUp(() {
     mockClient = MockClient();
-    service = GithubService();
+    service = GithubService(client: mockClient);
   });
 
   group('GithubService', () {
