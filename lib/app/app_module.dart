@@ -1,7 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:petize/app/modules/profile/profile_page.dart';
-import 'package:petize/app/modules/profile/profile_repository.dart';
-import 'package:petize/app/modules/profile/profile_bloc.dart';
+import 'package:search_github/app/modules/profile/profile_page.dart';
+import 'package:search_github/app/modules/profile/profile_repository.dart';
+import 'package:search_github/app/modules/profile/profile_bloc.dart';
 import 'modules/home/search_module.dart';
 
 class AppModule extends Module {

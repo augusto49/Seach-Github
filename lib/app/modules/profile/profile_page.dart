@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:petize/app/modules/profile/profile_bloc.dart';
+import 'package:search_github/app/modules/profile/profile_bloc.dart';
 import '../../shared/widgets/repo_card.dart';
 import '../../shared/widgets/user_info_card.dart';
 
