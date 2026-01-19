@@ -153,7 +153,7 @@ class _SearchPageState extends State<SearchPage> {
                     borderRadius: BorderRadius.circular(30),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
+                        color: Colors.grey.withValues(alpha: 0.2),
                         spreadRadius: 2,
                         blurRadius: 10,
                         offset: const Offset(0, 5),
@@ -212,7 +212,7 @@ class _SearchPageState extends State<SearchPage> {
                           bottom: Radius.circular(20)),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.15),
+                          color: Colors.grey.withValues(alpha: 0.15),
                           spreadRadius: 2,
                           blurRadius: 10,
                           offset: const Offset(0, 5),
@@ -278,7 +278,8 @@ class _SearchPageState extends State<SearchPage> {
                         borderRadius: BorderRadius.circular(30),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(0xFF7B1FA2).withOpacity(0.4),
+                            color:
+                                const Color(0xFF7B1FA2).withValues(alpha: 0.4),
                             spreadRadius: 1,
                             blurRadius: 8,
                             offset: const Offset(0, 4),

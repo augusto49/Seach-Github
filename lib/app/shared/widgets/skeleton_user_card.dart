@@ -18,7 +18,7 @@ class SkeletonUserCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            CircleAvatar(
+            const CircleAvatar(
               radius: 30,
               backgroundColor: Colors.white,
             ),

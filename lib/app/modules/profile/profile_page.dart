@@ -8,7 +8,7 @@ import '../../shared/widgets/user_info_card.dart';
 class ProfilePage extends StatefulWidget {
   final String username;
 
-  const ProfilePage({Key? key, required this.username}) : super(key: key);
+  const ProfilePage({super.key, required this.username});
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();

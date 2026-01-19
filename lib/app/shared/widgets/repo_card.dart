@@ -6,7 +6,7 @@ import '../utils/date_formatter.dart';
 class RepoCard extends StatelessWidget {
   final RepoModel repo;
 
-  const RepoCard({Key? key, required this.repo}) : super(key: key);
+  const RepoCard({super.key, required this.repo});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class RepoCard extends StatelessWidget {
             border: Border.all(color: Colors.grey.shade200),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.05),
+                color: Colors.grey.withValues(alpha: 0.05),
                 spreadRadius: 1,
                 blurRadius: 5,
                 offset: const Offset(0, 2),

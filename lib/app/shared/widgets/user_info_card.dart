@@ -5,7 +5,7 @@ import 'custom_widgets.dart';
 class UserInfoCard extends StatelessWidget {
   final UserProfileModel userData;
 
-  const UserInfoCard({Key? key, required this.userData}) : super(key: key);
+  const UserInfoCard({super.key, required this.userData});
 
   @override
   Widget build(BuildContext context) {
